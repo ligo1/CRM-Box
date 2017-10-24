@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+        function success(data){
+            console.log(data);
+            if (data.StatusCode > 0) {
+                console.log("error with bonus. status: " + data.StatusCode);
+                errorPopup(data.Message);
+                approveToContinue = false;
+            }
+            else {
+                game = data.PrizeDetails[0].FreeSpinTitle;
+                totalFS = data.PrizeDetails[0].FreeSpinAmount;
+                first = getRandomInt(1,(totalFS-2));
+                var totalFSafterFirst = totalFS - first;
+                second = getRandomInt(1,(totalFSafterFirst-1));
+                third = totalFS - first - second;
+
+                function getRandomInt(min, max) {
+                    return Math.floor(Math.random() * (max - min + 1)) + min;
+                }
+
+                ion.sound.play("arrow_man_balloon");
+                shootArrow(xPosition,yPosition);
+                manAnimation();
+                popBalloon(balloon, size);
+                showFS(balloon,1);
+                i++;
+                shot1 = true;
+                changeSentence(2);
+                clearInterval(interval);
+                countdown();
+            }
+        }
+
+        function fail(data){
+            var m = "Something went wrong :("
+            errorPopup(m);
+            console.log(m);
+            reutrn;
+        }
+
+        function errorPopup (e) {
+            $(".errorMessage").html(e);
+            $(".popupBG").show();
+            $("#error").fadeIn();
+            clickable = false;
+        }
+
+        var url='https://s3.amazonaws.com/playbuzz-cdn/content/feed/items';
+
+        var requestJson = {
+            "bonusId": 1,
+            "playerId": 2,
+            "skinId": 3,
+            "bonusGameId": 4,
+            "checkStatus": false,
+            "device": "iphone",
+            "browser": "chrome",
+            "platform": "windows",
+            "version": "10"
+        };
+
+        function claim(){
+            $.post(url,success,"xml")
+                    .fail(fail);
+        }
+    </script>
+
+</head>
+<body>
+    <button onclick="claim()">CLICK</button>
+</body>
+</html>
