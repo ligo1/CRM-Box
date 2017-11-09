@@ -36,7 +36,7 @@ $i = 0;
 
 foreach ($brands as $brand) {
     if($numItems == 1) { $b = $brand; }
-    if($brand == "Winkslots") { $winkslots = true; }
+    if($brand == "Wink Slots") { $winkslots = true; }
     if(++$i === $numItems) {
         $printBrands .= $brand;
     }
@@ -175,6 +175,12 @@ foreach ($keys as $key => $val) {
     elseif ($val == "ControlPercent" && $control == false) {
         $values[] = '0';
     }
+    elseif ($_POST["isSendingSMS"] != 1 && $val == "SMS_ScheduleDay_OffSet" || $val == "SMS_ScheduleTime" || $val == 'SMS_TemplateID_Wink' || $val == 'SMS_TemplateID_Ladies' || $val == 'SMS_TemplateID_Posh' || $val == 'SMS_TemplateID_Tasty' || $val == 'SMS_TemplateID_RedBus' || $val == 'SMS_TemplateID_BingoStreet' || $val == 'SMS_TemplateID_BingoLoft' || $val == 'SMS_TemplateID_Appy' || $val == 'SMS_TemplateID_SpinDipity' || $val == 'SMS_TemplateID_WinkSlots') {
+        $values[] = '0';
+    }
+    elseif ($_POST['IsSendingVBS'] != 1 && $val == 'VBS_OfferEndDate' || $val == 'VBS_CampaignID_Wink' || $val == 'VBS_CampaignID_Ladies' || $val == 'VBS_CampaignID_Posh' || $val == 'VBS_CampaignID_Tasty' || $val == 'VBS_CampaignID_RedBus' || $val == 'VBS_CampaignID_BingoStreet' || $val == 'VBS_CampaignID_BingoLoft' || $val == 'VBS_CampaignID_Appy' || $val == 'VBS_CampaignID_SpinDipity' || $val == 'VBS_CampaignID_WinkSlots' ) {
+        $values[] = '0';
+    }
     elseif ($_POST[$val] == 'on'){
         $values[] = '1';
     }
@@ -194,6 +200,9 @@ if ($doAbTest) {
         if ($val == "BrandName") {
             $valuesForB[] = $printBrands;
         }
+        elseif ($val == "Brand_ID") {
+            $valuesForB[] = $brandsId;
+        }
         elseif ($val == "Segment_desc") {
             $valuesForB[] = $segmentationDesc;
         }
@@ -204,6 +213,12 @@ if ($doAbTest) {
             $valuesForB[] = 'B';
         }
         elseif ($val == "ControlPercent" && $control == false) {
+            $valuesForB[] = '0';
+        }
+        elseif ($_POST["b--isSendingSMS"] != 1 && $val == "b--SMS_ScheduleDay_OffSet" || $val == "b--SMS_ScheduleTime" || $val == 'b--SMS_TemplateID_Wink' || $val == 'b--SMS_TemplateID_Ladies' || $val == 'b--SMS_TemplateID_Posh' || $val == 'b--SMS_TemplateID_Tasty' || $val == 'b--SMS_TemplateID_RedBus' || $val == 'b--SMS_TemplateID_BingoStreet' || $val == 'b--SMS_TemplateID_BingoLoft' || $val == 'b--SMS_TemplateID_Appy' || $val == 'b--SMS_TemplateID_SpinDipity' || $val == 'b--SMS_TemplateID_WinkSlots') {
+            $valuesForB[] = '0';
+        }
+        elseif ($_POST['b--IsSendingVBS'] != 1 && $val == 'b--VBS_OfferEndDate' || $val == 'b--VBS_CampaignID_Wink' || $val == 'b--VBS_CampaignID_Ladies' || $val == 'b--VBS_CampaignID_Posh' || $val == 'b--VBS_CampaignID_Tasty' || $val == 'b--VBS_CampaignID_RedBus' || $val == 'b--VBS_CampaignID_BingoStreet' || $val == 'b--VBS_CampaignID_BingoLoft' || $val == 'b--VBS_CampaignID_Appy' || $val == 'b--VBS_CampaignID_SpinDipity' || $val == 'b--VBS_CampaignID_WinkSlots' ) {
             $valuesForB[] = '0';
         }
         elseif ($_POST[$val] == 'on'){
